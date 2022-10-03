@@ -102,8 +102,17 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     //
-    // }
+    public function destroy($category_id)
+    {
+        $category = Category::find($category_id);
+        if($category_id)
+        {
+            $category->delete();
+            return redirect('admin/category')->with('message','Category Deleted Successfully');
+        }
+        else
+        {
+            return redirect('admin/category')->with('message','No Category ID found');
+        }
+    }
 }

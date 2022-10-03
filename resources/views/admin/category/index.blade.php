@@ -20,6 +20,8 @@
                     <th>ID</th>
                     <th>Category Name</th>
                     <th>Edit</th>
+                    <th>Delete</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +32,9 @@
                     <td>{{ $item->name}}</td>
                     <td>
                         <a href="{{ url('admin/edit/'.$item->id) }}" class="btn btn-success">Edit</a>
+                    </td>
+                    <td>
+                        <a href="{{ url('admin/delete/'.$item->id) }}" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
                 @endforeach
