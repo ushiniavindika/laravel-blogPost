@@ -29,7 +29,7 @@
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->name}}</td>
                     <td>
-                        <a href="" class="btn btn-success">Edit</a>
+                        <a href="{{ url('admin/edit/'.$item->id) }}" class="btn btn-success">Edit</a>
                     </td>
                 </tr>
                 @endforeach

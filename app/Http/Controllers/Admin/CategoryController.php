@@ -70,9 +70,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($category_id)
     {
-        //
+        $category = Category::find($category_id);
+        return view('admin.category.edit',compact('category'));
     }
 
     /**
@@ -82,10 +83,18 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryFormRequest $request,$category_id)
     {
-        //
+        $data = $request->validated();
+
+        $category = Category::find($category_id);
+        $category->name = $data['name'];
+        $category->created_by = Auth::user()->id;
+        $category->update();
+
+        return redirect('admin/category')->with('message','Category Updated Successfully');
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -93,8 +102,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    // public function destroy($id)
+    // {
+    //     //
+    // }
 }
