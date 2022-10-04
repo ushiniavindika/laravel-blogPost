@@ -28,6 +28,20 @@ class CategoryFormRequest extends FormRequest
             'required',
             'string'
         ],
+        'description' => [
+            'required',
+            
+        ],
+        'navbar_status' => [
+            'nullable'
+            
+            
+        ],
+        'status' => [
+            'nullable'
+           
+            
+        ],
         ];
         return $rules;
             //

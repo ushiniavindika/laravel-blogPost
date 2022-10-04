@@ -46,6 +46,10 @@ class CategoryController extends Controller
 
         $category = new Category;
         $category->name = $data['name'];
+        $category->description = $data['description'];
+
+        $category->navbar_status = $request->navbar_status == true? '1':'0';
+        $category->status = $request->status == true? '1':'0';
         $category->created_by = Auth::user()->id;
         $category->save();
 
@@ -89,6 +93,10 @@ class CategoryController extends Controller
 
         $category = Category::find($category_id);
         $category->name = $data['name'];
+        $category->description = $data['description'];
+
+        $category->navbar_status = $request->navbar_status == true? '1':'0';
+        $category->status = $request->status == true? '1':'0';
         $category->created_by = Auth::user()->id;
         $category->update();
 

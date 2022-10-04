@@ -19,6 +19,8 @@
                 <tr>
                     <th>ID</th>
                     <th>Category Name</th>
+                    <th>Category Description</th>
+                    <th>Status</th>
                     <th>Edit</th>
                     <th>Delete</th>
 
@@ -30,6 +32,8 @@
                 <tr>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->name}}</td>
+                    <td>{{ $item->description}}</td>
+                    <td>{{ $item->status == '1' ? 'Hidden':'Shown'}}</td>
                     <td>
                         <a href="{{ url('admin/edit/'.$item->id) }}" class="btn btn-success">Edit</a>
                     </td>

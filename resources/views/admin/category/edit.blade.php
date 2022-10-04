@@ -28,6 +28,20 @@
             <label for="">Category Name</label>
             <input type="text" name="name" value="{{ $category->name }}" class="form-control">
         </div>
+        <div class="mb-3">
+            <label>Description</label>
+            <textarea name="description" rows="6" class="form-control">{{ $category->description }}</textarea>
+        </div>
+        <h6>Status Mode</h6>
+        <div class="row">
+            <div class="col-md-3 mb-3">
+            <label>Navbar Status</label>
+            <input type="checkbox" name="navbar_status" {{ $category->navbar_status == '1' ? 'checked':'' }}/>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label>Status</label>
+            <input type="checkbox" name="status" {{ $category->status == '1' ? 'checked':''}}/>
+        </div>
         <div class="col-md-6">
             <button type="submit" class="btn btn-primary">Update Category</button>
         </div>
