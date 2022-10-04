@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Models\Category;
+use App\Models\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Admin\PostFormRequest;
 
 class PostController extends Controller
 {
@@ -15,7 +19,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('admin.post.index');
+        $posts = Post::all();
+        return view('admin.post.index',compact('posts'));
     }
 
     /**
@@ -34,15 +39,34 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    
+    public function store(PostFormRequest $request)
     {
-        //if($request->hasfile('image')){
-    //         $file = request->file('image');
-    //         $filename = time().'.'.$file->getClientOriginalExtension();
-    //         $file->move('uploads/category/',$filename);
-    //         $category->image = $filename;
-    //     } 
-     }
+            //
+            $data = $request->validated();
+    
+            $post = new Post;
+            $post->category_id = $data['category_id'];
+            $post->title = $data['title'];
+            $post->slug= $data['slug'];
+            $post->description = $data['description'];
+
+            if($request->hasfile('image')){
+                $file = $request->file('image');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+                $file->move('uploads/category/',$filename);
+                $post->image = $filename;
+                } 
+    
+            $post->status = $request->status == true? '1':'0';
+            $post->created_by = Auth::user()->id;
+            $post->save();
+    
+            return redirect('admin/posts')->with('message','Post Added Successfully');
+        }
+    
+     
+     
 
     /**
      * Display the specified resource.
@@ -50,10 +74,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    // public function show($id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -61,10 +85,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+    // public function edit($id)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -73,10 +97,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    // public function update(Request $request, $id)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -84,8 +108,8 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    // public function destroy($id)
+    // {
+    //     //
+    // }
 }

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->mediumText('description');
             $table->string('image');
             $table->integer('created_by');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->default('0');
             $table->timestamps();
         });
     }
