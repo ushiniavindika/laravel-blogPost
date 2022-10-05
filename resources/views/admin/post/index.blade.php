@@ -22,6 +22,7 @@
                 <th>Post Name</th>
                 <th>Post Image</th>
                 <th>State</th>
+                <th>Edit</th>
             </tr>
         </thead>
         <tbody>
@@ -35,6 +36,9 @@
                     <img src="{{asset('uploads/category/'.$item->image)}}" width="50px" height="50px"alt="Img">
                     </td>
                 <td>{{ $item->status == '1'? 'Hidden':'Visible' }}</td>
+                <td>
+                    <a href="{{url('admin/post/'.$item->id)}}" class="btn btn-success">Edit</a>
+                    </td>
             </tr>
             @endforeach
         </tbody>

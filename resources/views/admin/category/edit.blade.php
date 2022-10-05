@@ -15,10 +15,8 @@
     <div class="alert alert-danger">
         @foreach ($errorrs->all() as $error)
         <div>{{ $error }}</div>
-
-            
         @endforeach
-        
+    </div>
     @endif
     <form action="{{ url('admin/update/'.$category->id) }}" method="POST">
         @csrf

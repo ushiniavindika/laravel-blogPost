@@ -85,10 +85,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function edit($id)
-    // {
-    //     //
-    // }
+    public function edit($post_id)
+    {
+        $category = Category::where('status','0')->get();
+        $post = Post::find($post_id);
+        return view('admin.post.edit',compact('post','category'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -97,10 +99,32 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function update(Request $request, $id)
-    // {
-    //     //
-    // }
+    public function update(PostFormRequest $request, $post_id)
+    {
+        //
+        $data = $request->validated();
+    
+        $post = Post::find($post_id);
+        $post->category_id = $data['category_id'];
+        $post->title = $data['title'];
+        $post->slug= $data['slug'];
+        $post->description = $data['description'];
+
+        if($request->hasfile('image')){
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move('uploads/category/',$filename);
+            $post->image = $filename;
+            } 
+
+        $post->status = $request->status == true? '1':'0';
+        $post->created_by = Auth::user()->id;
+        $post->update();
+
+        return redirect('admin/posts')->with('message','Post Updated Successfully');
+    }
+
+   
 
     /**
      * Remove the specified resource from storage.
