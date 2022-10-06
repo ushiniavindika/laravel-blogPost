@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\Admin\PostFormRequest;
 
 class PostController extends Controller
@@ -111,6 +112,12 @@ class PostController extends Controller
         $post->description = $data['description'];
 
         if($request->hasfile('image')){
+
+            $destination = 'uploads/category/'.$post->image;
+            if(File::exists($destination)){
+                File::delete($destination);
+            }
+
             $file = $request->file('image');
             $filename = time() . '.' . $file->getClientOriginalExtension();
             $file->move('uploads/category/',$filename);
@@ -132,8 +139,21 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     //
-    // }
+    public function destroy($post_id)
+    {
+        $post = Post::find($post_id);
+        if($post)
+        {
+            $destination = 'uploads/category/'.$post->image;
+            if(File::exists($destination)){
+                File::delete($destination);
+            }
+            $post->delete();
+            return redirect('admin/posts')->with('message','Post Deleted Successfully');
+        }
+        else
+        {
+            return redirect('admin/posts')->with('message','No Post ID found');
+        }
+    }
 }

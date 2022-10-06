@@ -23,6 +23,7 @@
                 <th>Post Image</th>
                 <th>State</th>
                 <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -39,6 +40,9 @@
                 <td>
                     <a href="{{url('admin/post/'.$item->id)}}" class="btn btn-success">Edit</a>
                     </td>
+                    <td>
+                        <a href="{{url('admin/delete-post/'.$item->id)}}" class="btn btn-danger">Delete</a>
+                        </td>
             </tr>
             @endforeach
         </tbody>
